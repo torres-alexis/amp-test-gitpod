@@ -3,6 +3,10 @@ image:
 
 tasks:
   - init: |
+      # intialize conda
+      conda init bash
+      # Source bashrc
+      source /home/gitpod/.bashrc
       # Activate the Conda environment
       conda activate genelab-utils
 
