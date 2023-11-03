@@ -24,5 +24,6 @@ tasks:
 
 
 
-  - command: source ~/.bashrc
+  - command: source /home/gitpod/.bashrc
+  - command: which conda
   - command: conda activate genelab-utils
