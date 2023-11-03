@@ -15,7 +15,10 @@ tasks:
 
       # Source the .bashrc
       source ~/.bashrc
-  
+
+      # Activate the micromamba base environment
+      micromamba activate
+
       # Clone the dev branch of the GeneLab_Data_Processing repository
       git clone --branch amplicon-add-runsheet-visualizations https://github.com/torres-alexis/GeneLab_Data_Processing.git
 
