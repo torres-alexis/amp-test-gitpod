@@ -25,5 +25,7 @@ tasks:
 
 
   - command: |
-      # Activate the environment
+      # Source bashrc during startup
+      source ~/.bashrc
+      # Activate genelab-utils environment during startup 
       conda activate genelab-utils
