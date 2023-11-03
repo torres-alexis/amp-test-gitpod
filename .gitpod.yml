@@ -20,10 +20,3 @@ tasks:
       cd dp_tools
       pip install .
       cd ..
-
-
-
-
-  - command: source /home/gitpod/.bashrc
-  - command: which conda
-  - command: conda activate genelab-utils
