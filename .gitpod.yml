@@ -1,0 +1,27 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: |
+      # Download and extract micromamba
+      curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+
+      # Move micromamba 
+      mkdir -p ~/micromamba
+      mv bin/micromamba ~/micromamba/
+
+      # Initialize micromamba for the bash shell, modify the .bashrc file.
+      ~/micromamba/micromamba shell init -s bash -p ~/micromamba
+
+      # Source the .bashrc
+      source ~/.bashrc
+  
+      # Clone the dev branch of the GeneLab_Data_Processing repository
+      git clone --branch amplicon-add-runsheet-visualizations https://github.com/torres-alexis/GeneLab_Data_Processing.git
+
+      # Create the Conda environment using the environment.yml file
+      micromamba env create -f environment.yml
+
+  - command: |
+      # Activate the environment
+      micromamba activate genelab-utils
