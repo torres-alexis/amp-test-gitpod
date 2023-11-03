@@ -3,28 +3,38 @@ image:
 
 tasks:
   - init: |
-      # Download and extract micromamba
-      curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+      # Download miniconda
+      mkdir -p ~/miniconda3
+      wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+      bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+      rm -rf ~/miniconda3/miniconda.sh
 
-      # Move micromamba 
-      mkdir -p ~/micromamba
-      mv bin/micromamba ~/micromamba/
+      # Initialize miniconda
+      ~/miniconda3/bin/conda init bash
 
-      # Initialize micromamba for the bash shell, modify the .bashrc file.
-      ~/micromamba/micromamba shell init -s bash -p ~/micromamba
+      # Install mamba into the base conda environment
+      conda install -n base -c conda-forge mamba --yes
 
-      # Source the .bashrc
-      source ~/.bashrc
+      # Create the Conda environment using the conda package
+      mamba create -n genelab-utils -c conda-forge -c bioconda -c defaults -c astrobiomike genelab-utils --yes
 
-      # Activate the micromamba base environment
-      micromamba activate
+      # Activate the Conda environment
+      conda activate genelab-utils
 
       # Clone the dev branch of the GeneLab_Data_Processing repository
       git clone --branch amplicon-add-runsheet-visualizations https://github.com/torres-alexis/GeneLab_Data_Processing.git
 
-      # Create the Conda environment using the environment.yml file
-      micromamba env create -f environment.yml
+      # Clone the dev branch of the dp_tools repository
+      git clone --branch amplicon_updates https://github.com/torres-alexis/dp_tools.git
+
+      # Install dp_tools from the dev branch folder
+      cd dp_tools
+      pip install .
+      cd ..
+
+
+
 
   - command: |
       # Activate the environment
-      micromamba activate genelab-utils
+      conda activate genelab-utils
